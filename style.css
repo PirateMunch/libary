@@ -1,0 +1,75 @@
+/* color scheme and fonts */
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@600&family=Roboto&display=swap');
+
+:root {
+--clr-blue: #5680e9;
+--clr-blue-pale: #84ceeb;
+--clr-blue-light: #5ab9ea;
+--clr-purple-pale: #c1c8e4;
+--clr-purple: #8860d0;
+--font-fancy500: 'Arima', serif;
+--font-robo: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+/* header style */
+header {
+    display: flex;
+    font-family: var(--font-fancy500);
+    background-color: var(--clr-purple);
+    justify-content: center;
+    color: var(--clr-purple-pale);
+}
+
+/* main style */
+main {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-robo);
+    min-height: 30rem;
+    justify-content: space-between;
+    background-color: var(--clr-blue);
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.newBtn {
+    display: flex;
+    justify-content: center;
+    max-width: 10rem;
+    justify-content: center;
+    align-self: center;
+    background-color: var(--clr-blue-pale);
+    color: var(--clr-purple);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 20px;
+    font-weight: 600;
+    box-shadow: .5rem .5rem var(--clr-blue-light);
+}
+
+/* footer style */
+footer {
+    display: flex;
+    font-family: var(--font-robo);
+    min-height: 5rem;
+    background-color: var(--clr-purple);
+    color: var(--clr-purple-pale);
+    justify-content: space-evenly;
+}
+
+span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
