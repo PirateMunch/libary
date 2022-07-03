@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libary</title>
+<!--5star icon libary--><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,12 +14,42 @@
         <h1>Libary of Books</h1>
     </header>
     <main>
-        <section>
-            book stuff goes here in some kind of JS built divs?
-            Im thinking cards with flex......
-            and some Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis inventore sed dolor. Adipisci qui corporis ducimus, accusantium fugiat saepe dolores nemo quia enim id dolorem sed dignissimos doloribus! Ratione, expedita.
-        </section>
-        <input type="button" value="New Book" class="newBtn">
+        <form method="post" id="form">
+            <div class="title">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" placeholder="Lord of the Flies" autofocus>
+            </div>
+            <div class="author">
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author" placeholder="William Golding" autofocus>
+            </div>
+            <div class="pages">
+                <label for="pages">Pages</label>
+                <input type="text" name="pages" id="pages" placeholder="224" autofocus>
+            </div>
+            <div class="published">
+                <label for="published">Published</label>
+                <input type="text" name="published" id="published" placeholder="17 September 1954" autofocus>
+            </div>
+            <div class="read">
+                <div class="readleft">
+                <label for="read">Read</label>
+                <input type="radio" name="read" id="read" autofocus>
+                </div>
+                <div class="readright">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                </div>
+            </div>
+            <div class="dateRead">
+                <label for="dateRead">Date read</label>
+                <input type="date" name="dateRead" id="dateRead" autofocus>
+            </div>
+        </form>
+        <button type="submit" onclick="createBook()" id="submit2">Add New Book</button>
     </main>
     <footer>
         <span>PirateMunch</span><span>Libary project : The Odin Project</span>

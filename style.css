@@ -33,6 +33,7 @@ header {
     background-color: var(--clr-purple);
     text-align: center;
     color: var(--clr-purple-pale);
+    font-size: 1.7rem;
 }
 
 /* main style */
@@ -46,10 +47,10 @@ main {
     background-color: var(--clr-blue);
     color: var(--clr-purple-pale);
 }
-
-section {
-    display: flex;
-    justify-content: center;
+/* used grid for an easy / nnice form look for inputs */
+form {
+    display: grid;
+    gap: 1.5rem;
     margin: 2rem;
     border: 1px solid var(--clr-purple);
     background-color: var(--clr-blue-pale);
@@ -59,10 +60,40 @@ section {
     box-shadow: .5rem .5rem var(--clr-blue-light);
 }
 
-.newBtn {
+/* to scale up from mobile. breakpoint 560px / 36rem */
+@media only screen and (min-width: 36rem) {
+    form {
+        grid-template-columns: auto auto ;
+    }
+}
+
+form > * {
+    padding: 1rem;
+    box-shadow: .5rem .5rem var(--clr-blue);
+    border-radius: 20px;
+}
+
+form > * > label {
+    font-family: var(--font-fancy500);
+    font-size: 1.05rem;
+    font-weight: 900;
+    margin-right: .5rem;
+}
+
+.read {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checked {
+    color: orangered;
+}
+
+/* button style for user to add new book */
+#submit2 {
     display: flex;
     justify-content: center;
-    max-width: 10rem;
+    max-width: 20rem;
     justify-content: center;
     align-self: center;
     background-color: var(--clr-blue-pale);
