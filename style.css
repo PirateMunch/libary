@@ -33,7 +33,7 @@ header {
     background-color: var(--clr-purple);
     text-align: center;
     color: var(--clr-purple-pale);
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 /* main style */
@@ -90,13 +90,15 @@ form > * > label {
 }
 
 /* button style for user to add new book */
-#submit2 {
+#addNewBoo {
     display: flex;
     justify-content: center;
+    justify-self: center;
     max-width: 20rem;
     justify-content: center;
     align-self: center;
     background-color: var(--clr-blue-pale);
+    border: 1px solid var(--clr-purple);
     color: var(--clr-purple);
     font-size: 1.5rem;
     padding: .5rem 1rem;
