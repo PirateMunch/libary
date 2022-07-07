@@ -10,13 +10,16 @@
 --font-fancy500: 'Arima', serif;
 --font-robo: 'Roboto', sans-serif;
 }
+html {
+    height: 100%;
+}
 
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
 }
 
 /* box to help make page responsive and fill page */
@@ -30,29 +33,80 @@ body {
 header {
     flex: 0 1 auto;
     font-family: var(--font-fancy500);
-    background-color: var(--clr-purple);
+    background-color: var(--clr-blue-light);
     text-align: center;
-    color: var(--clr-purple-pale);
+    color: var(--clr-purple);
     font-size: 1.5rem;
 }
 
 /* main style */
 main {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
+display: grid;
     font-family: var(--font-robo);
     min-height: 30rem;
     justify-content: space-evenly;
     background-color: var(--clr-blue);
     color: var(--clr-purple-pale);
 }
-/* used grid for an easy / nnice form look for inputs */
+
+#hideForm {
+    display: none;
+}
+#getForm {
+    display: grid;
+}
+
+.libary {
+    background-color: white;
+    display: grid;
+    gap: 2rem;
+    margin: 2rem;
+    border-radius: 12px;
+}
+
+/* remove default list settings */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.books {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.book {
+    border: solid 1px red;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.getForm {
+    display: grid;
+    font-size: 1.5rem;
+    max-height: 4rem;
+    justify-self: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;      
+}
+
+
+
+/* used grid for an easy / nice form look for inputs */
 form {
     display: grid;
     gap: 1.5rem;
     margin: 2rem;
-    border: 1px solid var(--clr-purple);
+    border: 1px solid var(--clr-blue-light);
     background-color: var(--clr-blue-pale);
     color: var(--clr-purple);
     padding: 2rem;
@@ -64,6 +118,15 @@ form {
 @media only screen and (min-width: 36rem) {
     form {
         grid-template-columns: auto auto ;
+    }
+    #addNewBook {
+        background-color: #5680e9;
+        display: grid;
+        justify-self: center;
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+        grid-column-start: 1;
+        grid-column-end: 3;
     }
 }
 
@@ -89,33 +152,14 @@ form > * > label {
     color: orangered;
 }
 
-/* button style for user to add new book */
-#addNewBoo {
-    display: flex;
-    justify-content: center;
-    justify-self: center;
-    max-width: 20rem;
-    justify-content: center;
-    align-self: center;
-    background-color: var(--clr-blue-pale);
-    border: 1px solid var(--clr-purple);
-    color: var(--clr-purple);
-    font-size: 1.5rem;
-    padding: .5rem 1rem;
-    margin-bottom: 2rem;
-    border-radius: 20px;
-    font-weight: 600;
-    box-shadow: .5rem .5rem var(--clr-blue-light);
-}
-
 /* footer style */
 footer {
     flex: 0 1 2rem;
     display: flex;
     font-family: var(--font-robo);
     min-height: 5rem;
-    background-color: var(--clr-purple);
-    color: var(--clr-purple-pale);
+    background-color: var(--clr-blue-light);
+    color: var(--clr-purple);
     justify-content: space-evenly;
 }
 
