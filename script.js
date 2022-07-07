@@ -42,10 +42,11 @@ const formSubmit = function (event) {
   userBook = new Book(title, author, pages, published, read, dateRead);
   addBookToLibrary();
   buildLibary();
+  toggleForm();
 };
 
 
-const buildLibary = function() {
+function buildLibary() {
   myLibrary.forEach(renderlist);
   function renderlist(element, index, arr) {
     //create list items with class of book and append
@@ -56,15 +57,19 @@ const buildLibary = function() {
 
     bookShelf.appendChild(li);
 
-    li.innerHTML = li.innerHTML + element;
+    console.log(element[0]);
+// make book into nice list
+    li.innerHTML = `Title \xa0: \xa0\xa0 ${element[0]}` +"<br>"+ `Author \xa0:\xa0\xa0 ${element[1]}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${element[2]}`
+    +"<br>"+ `Published \xa0:\xa0\xa0  ${element[3]}`  +"<br>"+ `Read \xa0:\xa0\xa0 ${element[4]}`  +"<br>"+ `Finished Reading Book \xa0:\xa0\xa0 ${element[5]}`
   }
 };
 
-const showLibary = function () {
-  myLibrary.push(lordOfFlies.info())
-  myLibrary.push(testbook.info())
-  buildLibary()
-}
+
+function showLibary() {
+  myLibrary.push(lordOfFlies.info());
+  myLibrary.push(testbook.info());
+  buildLibary();
+};
 
 function toggleForm() {
   const newForm = document.getElementById("hideForm");
@@ -76,7 +81,7 @@ function toggleForm() {
   else {
     newForm.style.display ='grid';
   }
-}
+};
 
 
 form.addEventListener("submit", formSubmit);
@@ -84,3 +89,5 @@ form.addEventListener("submit", formSubmit);
 getForm.addEventListener('click', toggleForm);
 
 window.onLoad = showLibary();
+//bugs -- Submit book returns all of myLibary array concated up
+//would like -- add new book button should disapear when form opens up

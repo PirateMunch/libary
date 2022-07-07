@@ -34,6 +34,7 @@ header {
     flex: 0 1 auto;
     font-family: var(--font-fancy500);
     background-color: var(--clr-blue-light);
+    border-bottom-left-radius: 20rem;
     text-align: center;
     color: var(--clr-purple);
     font-size: 1.5rem;
@@ -45,7 +46,6 @@ display: grid;
     font-family: var(--font-robo);
     min-height: 30rem;
     justify-content: space-evenly;
-    background-color: var(--clr-blue);
     color: var(--clr-purple-pale);
 }
 
@@ -61,7 +61,9 @@ display: grid;
     display: grid;
     gap: 2rem;
     margin: 2rem;
+    padding: 1rem;
     border-radius: 12px;
+    background-color: var(--clr-blue-pale);
 }
 
 /* remove default list settings */
@@ -76,14 +78,18 @@ ul {
     grid-template-columns: 1fr 1fr;
     grid-column-start: 1;
     grid-column-end: 3;
-    gap: 1rem;
+    gap: 2rem;
     margin: 1rem;
+    color: var(--clr-purple);
+    line-height: 180%;
+    font-family: var(--font-fancy500);
 }
 
 .book {
-    border: solid 1px red;
     border-radius: 12px;
     padding: 1rem;
+    background-color: aliceblue;
+    box-shadow: .5rem .5rem var(--clr-blue-light);
 }
 
 .getForm {
@@ -97,6 +103,9 @@ ul {
     padding: 1rem 2rem;
     font-weight: 900;
     margin-bottom: 1rem;      
+    color: var(--clr-purple);
+    background-color: var(--clr-blue-pale);
+    box-shadow: .5rem .5rem var(--clr-blue-light);
 }
 
 
@@ -111,7 +120,6 @@ form {
     color: var(--clr-purple);
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: .5rem .5rem var(--clr-blue-light);
 }
 
 /* to scale up from mobile. breakpoint 560px / 36rem */
@@ -120,20 +128,26 @@ form {
         grid-template-columns: auto auto ;
     }
     #addNewBook {
-        background-color: #5680e9;
         display: grid;
-        justify-self: center;
         font-size: 1.5rem;
-        padding: 1rem 2rem;
+        max-height: 4rem;
+        justify-self: center;
         grid-column-start: 1;
         grid-column-end: 3;
+        border-radius: 20px;
+        padding: 1rem 2rem;
+        font-weight: 900;
+        margin-bottom: 1rem;      
+        color: var(--clr-purple);
+        background-color: var(--clr-blue-pale);
     }
 }
 
 form > * {
     padding: 1rem;
-    box-shadow: .5rem .5rem var(--clr-blue);
+    box-shadow: .5rem .5rem var(--clr-blue-light);
     border-radius: 20px;
+    background-color: aliceblue;
 }
 
 form > * > label {
@@ -144,8 +158,13 @@ form > * > label {
 }
 
 .read {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-items: center;
+    gap: 1rem;
+
 }
 
 .checked {
@@ -161,6 +180,7 @@ footer {
     background-color: var(--clr-blue-light);
     color: var(--clr-purple);
     justify-content: space-evenly;
+    border-top-right-radius: 20rem;
 }
 
 span{
