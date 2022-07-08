@@ -1,4 +1,5 @@
 let myLibrary = [];
+let submitArray = [];
 
 // constructor for books could be a Class.
 function Book(title, author, pages, published, read, dateRead) {
@@ -37,20 +38,29 @@ const formSubmit = function (event) {
   
   userBook = new Book(title, author, pages, published, read, dateRead);
   myLibrary.push(userBook.info());
+  submitArray.push(userBook.info());
   toggleForm();
-  //bug -- stop duplicates here
-  buildLibary();
-  
+  addNewBook();
 };
+
+function addNewBook() {
+  newBook = myLibrary[myLibrary.length -1];
+  console.log(newBook);
+   //create list items with class of book and append
+    var li = document.createElement('li');
+    const classAttribute = document.createAttribute("class");
+    classAttribute.value = "book";
+    li.setAttributeNode(classAttribute);
+
+    bookShelf.appendChild(li);
+// make book into nice list - works, maybe bit crude.
+    li.innerHTML = `Title \xa0: \xa0\xa0 ${newBook[0]}` +"<br>"+ `Author \xa0:\xa0\xa0 ${newBook[1]}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${newBook[2]}`
+    +"<br>"+ `Published \xa0:\xa0\xa0  ${newBook[3]}`  +"<br>"+ `Read \xa0:\xa0\xa0 ${newBook[4]}`  +"<br>"+ `Finished Reading Book \xa0:\xa0\xa0 ${newBook[5]}`
+  }
 
 
 function buildLibary() {
   myLibrary.forEach(renderlist);
-// add for if here to exclude doubles. Or before append?
-// for (let i in myLibrary) { 
-//   if(i === --i) {
-//     continue;
-//     } run renderlist.....  
 
   function renderlist(element, index, arr) {
     //create list items with class of book and append
@@ -60,9 +70,6 @@ function buildLibary() {
     li.setAttributeNode(classAttribute);
 
     bookShelf.appendChild(li);
-
-    //test
-    console.log(element[0]);
 // make book into nice list - works, maybe bit crude.
     li.innerHTML = `Title \xa0: \xa0\xa0 ${element[0]}` +"<br>"+ `Author \xa0:\xa0\xa0 ${element[1]}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${element[2]}`
     +"<br>"+ `Published \xa0:\xa0\xa0  ${element[3]}`  +"<br>"+ `Read \xa0:\xa0\xa0 ${element[4]}`  +"<br>"+ `Finished Reading Book \xa0:\xa0\xa0 ${element[5]}`
@@ -85,10 +92,8 @@ const form = document.getElementById('form');
 const getForm = document.getElementById("getForm");
 const bookShelf = document.getElementById("books");
 let userBook;
-
 // upload new book button
 form.addEventListener("submit", formSubmit);
-
 //add new book button
 getForm.addEventListener('click', toggleForm);
 
@@ -101,5 +106,4 @@ function showLibary() {
 window.onLoad = showLibary();
 
 
-//bugs -- Submit book returns all of myLibary array concated up
 //would like -- add new book button should disapear when form opens up
