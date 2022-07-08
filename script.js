@@ -81,9 +81,11 @@ function toggleForm() {
   const displaySetting = newForm.style.display;
   if(displaySetting == 'grid') {
     newForm.style.display = 'none';
+    getForm.innerHTML = "Add New Book"
   }
   else {
     newForm.style.display ='grid';
+    getForm.innerHTML = "Cancel Form"
   }
 };
 

@@ -107,6 +107,7 @@ ul {
     color: var(--clr-purple);
     background-color: var(--clr-blue-pale);
     box-shadow: .5rem .5rem var(--clr-blue-light);
+    border: 1px solid var(--clr-purple);
 }
 
 
@@ -141,6 +142,7 @@ form {
         margin-bottom: 1rem;      
         color: var(--clr-purple);
         background-color: var(--clr-blue-pale);
+        border: 1px solid var(--clr-purple);
     }
 }
 
@@ -163,7 +165,6 @@ form > * > label {
     grid-template-columns: 1fr 1fr;
     grid-column-start: 1;
     grid-column-end: 3;
-    justify-items: center;
     gap: 1rem;
 
 }
