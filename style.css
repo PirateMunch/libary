@@ -1,6 +1,7 @@
 /* color scheme and fonts */
 @import url('https://fonts.googleapis.com/css2?family=Arima:wght@600&family=Roboto&display=swap');
 
+/* this is vital, my color/design eye sucks. easily change all here */
 :root {
 --clr-blue: #5680e9;
 --clr-blue-pale: #84ceeb;
@@ -22,7 +23,7 @@ body {
     min-width: 100%;
 }
 
-/* box to help make page responsive and fill page */
+/* box to help make page responsive and fill page , is flex best, liking grid now*/
 .box {
     display: flex;
     flex-direction: column;
