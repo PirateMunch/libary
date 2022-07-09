@@ -6,4 +6,8 @@ I will employ a mobile first design process as i've heard this is the way forwar
 
 link to project:
 
+github repos:
+https://github.com/PirateMunch/libary.git
+
+live link:
 https://piratemunch.github.io/libary/
