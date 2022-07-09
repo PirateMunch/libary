@@ -25,6 +25,37 @@ body {
     display: grid;
 }
 
+@media only screen and (min-device-width : 40rem) {
+    #form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    #hideForm {
+        justify-content: center;
+    }
+
+    .read {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    .books {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    #addNewBook {
+        align-self: center;
+    }
+    
+}
 /* header style */
 header {
     font-family: var(--font-fancy500);
@@ -77,7 +108,6 @@ ul {
 
 .books {
     display: grid;
-    grid-template-columns: 1fr;
     grid-column-start: 1;
     grid-column-end: 3;
     gap: 1rem;
@@ -88,6 +118,7 @@ ul {
 }
 
 .book {
+    display: grid;
     border-radius: 12px;
     padding: 1rem;
     background-color: aliceblue;
@@ -111,13 +142,26 @@ ul {
     border: 1px solid var(--clr-purple);
 }
 
+.delete {
+    display: grid;
+    justify-self: flex-end;
+    border: none;
+    background: linear-gradient(45deg, rgba(250, 0 , 0, 0), rgba(136, 233, 250, 0.649));
+    border-radius: 12px;
+    padding: .5rem;
+    color: var(--clr-purple);
+    font-family: var(--font-robo);
+    font-weight: 900;
+}
 
+.delete:hover {
+    border: 2px dotted var(--clr-purple);
+}
 
 /* used grid for an easy / nice form look for inputs */
 #form {
     display: flex;
     flex-direction: column;
-    grid-template-columns: 1fr;
     justify-items: center;
     gap: 1rem;
     margin: 2rem;
@@ -164,7 +208,6 @@ form > * > label {
 
 .read {
     display: grid;
-    grid-template-columns: 1fr;
     grid-column-start: 1;
     grid-column-end: 3;
     gap: 1rem;
