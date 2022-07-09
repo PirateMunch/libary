@@ -1,7 +1,7 @@
 /* color scheme and fonts */
 @import url('https://fonts.googleapis.com/css2?family=Arima:wght@600&family=Roboto&display=swap');
 
-/* this is vital, my color/design eye sucks. easily change all here */
+/*easily change all here - then i went mad lol */
 :root {
 --clr-blue: #5680e9;
 --clr-blue-pale: #84ceeb;
@@ -19,7 +19,7 @@ body {
     background: linear-gradient(101deg, rgba(250, 0 , 0, 0), rgba(136, 233, 250, 0.649));
 }
 
-/* box to help make page responsive and fill page , is flex best, liking grid now*/
+/* box to help make page responsive and fill page , is needed?*/
 .box {
     height: 100vh;
     display: grid;
@@ -131,6 +131,7 @@ ul {
     border: 1px solid var(--clr-purple);
 }
 
+/* book displays */
 .books {
     display: grid;
     grid-column-start: 1;
@@ -149,7 +150,7 @@ ul {
     background-color: aliceblue;
     box-shadow: .5rem .5rem var(--clr-blue-light);
 }
-
+/* add new book button */
 .getForm {
     display: grid;
     font-size: 1.5rem;
@@ -167,6 +168,7 @@ ul {
     border: 1px solid var(--clr-purple);
 }
 
+/*delete buttons*/
 .delete {
     align-items: center;
     align-self: flex-end;
@@ -183,9 +185,7 @@ ul {
     border: 2px dotted var(--clr-purple);
 }
 
-
-
-/* used grid for an easy / nice form look for inputs */
+/* form display */
 #form {
     display: flex;
     flex-direction: column;
@@ -195,8 +195,6 @@ ul {
     color: var(--clr-purple);
     padding: 1rem;
 }
-
-
 
 form > * {
     padding: 1rem;
@@ -213,8 +211,7 @@ form > * > label {
     margin-right: .5rem;
 }
 
-
-
+/* form submit button */
 #addNewBook {
     display: grid;
     font-size: 1.5rem;
@@ -232,6 +229,7 @@ form > * > label {
     border: 1px solid var(--clr-purple);
 }
 
+/* box to concate read status/delete button */
 .read {
     display: grid;
     grid-column-start: 1;
