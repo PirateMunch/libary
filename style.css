@@ -16,6 +16,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: var(--clr-blue-pale);
 }
 
 /* box to help make page responsive and fill page , is flex best, liking grid now*/
@@ -39,7 +40,7 @@ h1 {
     margin: 0;
     display: flex;
     justify-content: center;
-    margin-top: 1.5rem;
+    padding: .5rem 0;
 }
 
 /* main style */
@@ -105,7 +106,7 @@ ul {
     font-weight: 900;
     margin-bottom: 1rem;      
     color: var(--clr-purple);
-    background-color: var(--clr-blue-pale);
+    background-color: aliceblue;
     box-shadow: .5rem .5rem var(--clr-blue-light);
     border: 1px solid var(--clr-purple);
 }
@@ -120,8 +121,6 @@ ul {
     justify-items: center;
     gap: 1rem;
     margin: 2rem;
-    border: 1px solid var(--clr-blue-light);
-    background-color: var(--clr-blue-pale);
     color: var(--clr-purple);
     padding: 1rem;
     border-radius: 12px;
@@ -150,15 +149,16 @@ form > * > label {
     display: grid;
     font-size: 1.5rem;
     max-height: 4rem;
+    padding: 1rem 2rem;
     justify-self: center;
     grid-column-start: 1;
     grid-column-end: 3;
     border-radius: 20px;
-    padding: 1rem 2rem;
     font-weight: 900;
     margin-bottom: 1rem;      
     color: var(--clr-purple);
-    background-color: var(--clr-blue-pale);
+    background-color: aliceblue;
+    box-shadow: .5rem .5rem var(--clr-blue-light);
     border: 1px solid var(--clr-purple);
 }
 
