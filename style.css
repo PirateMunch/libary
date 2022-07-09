@@ -106,6 +106,13 @@ ul {
     margin: 0;
 }
 
+.divBox {
+    display: flex;
+    flex-direction: row-reverse;
+    border: 1px solid red;
+    margin-top: 1rem;
+}
+
 .books {
     display: grid;
     grid-column-start: 1;
@@ -157,6 +164,8 @@ ul {
 .delete:hover {
     border: 2px dotted var(--clr-purple);
 }
+
+
 
 /* used grid for an easy / nice form look for inputs */
 #form {
