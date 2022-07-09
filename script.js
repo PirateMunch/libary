@@ -79,12 +79,12 @@ function buildLibary() {
 function toggleForm() {
   const newForm = document.getElementById("hideForm");
   const displaySetting = newForm.style.display;
-  if(displaySetting == 'grid') {
+  if(displaySetting == 'flex') {
     newForm.style.display = 'none';
     getForm.innerHTML = "Add New Book"
   }
   else {
-    newForm.style.display ='grid';
+    newForm.style.display ='flex';
     getForm.innerHTML = "Cancel Form"
   }
 };

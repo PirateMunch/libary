@@ -54,7 +54,7 @@ main {
 }
 
 #getForm {
-    display: grid;
+    display: flex;
 }
 
 .libary {
