@@ -69,23 +69,38 @@ function addNewBook() {
     var button = document.createElement("button");
     const deleteclass = document.createAttribute("class");
     deleteclass.value ="delete";
+    const deletedata = document.createAttribute("data-index");
+    deletedata.value = indexNum;
+    button.setAttributeNode(deletedata);
     button.setAttributeNode(deleteclass);
     button.innerHTML = "Delete Book"
-  
     box.appendChild(button)
 
-    var readstat = document.createElement('radio');
-    const readAtt = document.createAttribute("inputs");
-    readAtt.value = "input";
-    readstat.setAttributeNode(readAtt);
-    readstat.innerHTML = "SSSSSSSSSsssssssss"
-
-    box.appendChild(readstat)
-// // make book into nice list - works, maybe bit crude.
-//     li.innerHTML = `Title \xa0: \xa0\xa0 ${newBook[0]}` +"<br>"+ `Author \xa0:\xa0\xa0 ${newBook[1]}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${newBook[2]}`
-//     +"<br>"+ `Published \xa0:\xa0\xa0  ${newBook[3]}`  +"<br>"+ `Read \xa0:\xa0\xa0 ${newBook[4]}`  +"<br>"+ `Finished Reading Book \xa0:\xa0\xa0 ${newBook[5]}`
-//     // +"<br>"+ `<button type="button" data-index='${indexNum}' class='delete'>Delete Book</button>`
-  
+        //read status.  not sure i like 4 extra boxes here.
+        var readlabel = document.createElement('label');  
+        const labelclass = document.createAttribute("class");
+        labelclass.value = "label";
+        readlabel.setAttributeNode(labelclass);
+        readlabel.innerHTML = "Read this book?"
+        box.appendChild(readlabel);
+    
+        var readselect = document.createElement('select');
+        const selectclass = document.createAttribute("class");
+        selectclass.value = ("select");
+        readselect.setAttributeNode(selectclass);
+        readlabel.appendChild(readselect);
+    
+        var readoptionno = document.createElement("option");
+        const optionclassno = document.createAttribute("value");
+        readoptionno.setAttributeNode(optionclassno);
+        readoptionno.innerHTML = "No";
+        readselect.appendChild(readoptionno);
+    
+        var readoptionyes = document.createElement("option");
+        const optionclassyes = document.createAttribute("value");
+        readoptionyes.setAttributeNode(optionclassyes);
+        readoptionyes.innerHTML = "Yes";
+        readselect.appendChild(readoptionyes);
    }
 
 function buildLibary() {
@@ -108,12 +123,14 @@ function buildLibary() {
     info.innerHTML = `Title \xa0: \xa0\xa0 ${element[0]}` +"<br>"+ `Author \xa0:\xa0\xa0 ${element[1]}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${element[2]}`
     +"<br>"+ `Published \xa0:\xa0\xa0  ${element[3]}` 
 
+    //create box for flexing these 2 elements for style ect.
     var box = document.createElement("div");
     const divAtt = document.createAttribute("class");
     divAtt.value = "divBox";
     box.setAttributeNode(divAtt);
     li.appendChild(box);
 
+    //delete button
     var button = document.createElement("button");
     const deleteclass = document.createAttribute("class");
     deleteclass.value ="delete";
@@ -121,13 +138,31 @@ function buildLibary() {
     button.innerHTML = "Delete Book"
     box.appendChild(button)
 
-    var readstat = document.createElement('radio');
-    const readAtt = document.createAttribute("inputs");
-    readAtt.value = "input";
-    readstat.setAttributeNode(readAtt);
-    readstat.innerHTML = "SSSSSSSSSsssssssss"
-    
-    box.appendChild(readstat)
+    //read status.  not sure i like 4 extra boxes here.
+    var readlabel = document.createElement('label');  
+    const labelclass = document.createAttribute("class");
+    labelclass.value = "label";
+    readlabel.setAttributeNode(labelclass);
+    readlabel.innerHTML = "Read this book?"
+    box.appendChild(readlabel);
+
+    var readselect = document.createElement('select');
+    const selectclass = document.createAttribute("class");
+    selectclass.value = ("select");
+    readselect.setAttributeNode(selectclass);
+    readlabel.appendChild(readselect);
+
+    var readoptionno = document.createElement("option");
+    const optionclassno = document.createAttribute("value");
+    readoptionno.setAttributeNode(optionclassno);
+    readoptionno.innerHTML = "No";
+    readselect.appendChild(readoptionno);
+
+    var readoptionyes = document.createElement("option");
+    const optionclassyes = document.createAttribute("value");
+    readoptionyes.setAttributeNode(optionclassyes);
+    readoptionyes.innerHTML = "Yes";
+    readselect.appendChild(readoptionyes);
   }
 
 };
