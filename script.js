@@ -57,6 +57,10 @@ function addBookToLibrary() {
     button.setAttributeNode(deleteclass);
     button.innerHTML = "Delete Book"
     box.appendChild(button)
+    //create event listener with the dom element.
+    Array.from(document.getElementsByClassName("delete")).forEach(function(element) {
+      element.addEventListener('click', myHandler)
+    });
 
         //read status.  not sure i like 4 extra boxes here, but works
         var readlabel = document.createElement('label');  
@@ -88,6 +92,7 @@ function addBookToLibrary() {
 //repeating main function. think its just for start up display at this stage
 //builds libary from main myLibary Array on load up/kinda redundant after finished. add texts add books here
 function buildLibary() {
+  indexNum = myLibrary.length; // part test
   myLibrary.forEach(renderlist);
 
   function renderlist(element, index, arr) {
@@ -120,7 +125,9 @@ function buildLibary() {
     deleteclass.value ="delete";
     button.setAttributeNode(deleteclass);
     button.innerHTML = "Delete Book"
-    box.appendChild(button)
+    button.value = indexNum //testing
+    box.appendChild(button);
+    console.log(button.value)
 
         //read status.  not sure i like 4 extra boxes here.
         var readlabel = document.createElement('label');  
@@ -190,14 +197,13 @@ function showLibary() {
 };
 
 window.onLoad = showLibary();
+
 //--- test stuff
-function myHandler () {
+function myHandler (e) {
   console.log("Boo")
+  console.log(e.value)
 };
 
-Array.from(document.getElementsByClassName("delete")).forEach(function(element) {
-  element.addEventListener('click', myHandler)
-});
 
 // upload new book button
 form.addEventListener("submit", formSubmit);
