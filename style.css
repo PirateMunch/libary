@@ -120,22 +120,10 @@ ul {
     justify-content: space-between;
 }
 
-.label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+label, p {
+    margin-right: .5rem;
+    font-family: var(--font-fancy500);
 }
-
-.select {
-    padding: .2rem;
-    border-radius: 12px;
-    font-weight: 900;      
-    color: var(--clr-purple);
-    background-color: aliceblue;
-    box-shadow: .2rem .2rem var(--clr-blue-light);
-    border: 1px solid var(--clr-purple);
-}
-
 /* book displays */
 .books {
     display: grid;
@@ -253,6 +241,10 @@ form > * > label {
     display: grid;
     grid-column-start: 1;
     grid-column-end: 3;
+    gap: 1rem;
+}
+
+.readleft > * + * {
     gap: 1rem;
 }
 
