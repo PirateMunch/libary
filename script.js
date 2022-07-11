@@ -1,5 +1,4 @@
 let myLibrary = [];
-let submitArray = [];
 let userBook;
 
 const form = document.getElementById('form');
@@ -7,18 +6,15 @@ const getForm = document.getElementById("getForm");
 const bookShelf = document.getElementById("books");
 const emptyBook = document.getElementById("emptyBook");
 
+const yesOrNo = ['Yes', 'No'];
 
-const radioButton = document.getElementsByClassName('radioClass');
-const deleteButton = document.querySelectorAll('[data-delete]');
-
-let radioSelected;
-let indexNum2 = 0;
-function uniqueID() {
-  return indexNum2++
+//random enough number for my books.
+function uniqueIndex() {
+  return Math.floor(Math.random()*Date.now())
 }
 
 // constructor for books could be a Class.
-function Book(title, author, pages, published, read, dateRead, data) {
+function Book(title, author, pages, published, read, dateRead, data, index) {
   this.title = title
   this.author = author
   this.pages = pages
@@ -26,24 +22,24 @@ function Book(title, author, pages, published, read, dateRead, data) {
   this.read = read
   this.dateRead = dateRead
   this.data = data
+  this.index = index
   this.info = function() {
-    return [title, author, pages, published, read, dateRead, data]
+    return [title, author, pages, published, read, dateRead, data, index]
   }
 };
 
+/////no logic left this stage.....  
+//// need simplify and take arrays out of some functions to stop cache
 //logic to build the display with new books, adding attributes, unique data-index
 function addBookToLibrary() {
-  newBook = submitArray[submitArray.length -1]; //not best way to get newbook. infact is causing issues i think
-  indexNum = uniqueID();
+  newBook = myLibrary[myLibrary.length -1]; //not best way to get newbook. infact is causing issues i think
    //create list items with class of book and append
     var li = document.createElement('li');
     const classAttribute = document.createAttribute("class");
-    const classAttribute1 = document.createAttribute("class");
-    classAttribute1.value = "book1";
     classAttribute.value = "book";
     li.setAttributeNode(classAttribute);
-    const listData = document.createAttribute("data-index");
-    listData.value = indexNum;
+    const listData = document.createAttribute("data-book");
+    listData.value = userBook.index;
     li.setAttributeNode(listData);
     bookShelf.appendChild(li);
   //display elements as info for user
@@ -65,116 +61,68 @@ function addBookToLibrary() {
     var button = document.createElement("button");
     const deleteclass = document.createAttribute("class");
     deleteclass.value ="delete";
-    const deletedata = document.createAttribute("data-index");
-    deletedata.value = indexNum;
+    const deleteUni = document.createAttribute("id");
+    deleteUni.value = userBook.index; 
     button.dataset.delete = "delete";
-    button.setAttributeNode(deletedata);
+    button.dataset.index = userBook.index;
     button.setAttributeNode(deleteclass);
+    button.setAttributeNode(deleteUni);
     const deleteImg = '<img src="delete1.svg">';
     button.innerHTML = deleteImg;
 
     box.appendChild(button)
 
-    //create event listener with the dom element.
-    //using arrow function to access this.parent to delete correct book
-    Array.from(document.getElementsByClassName("delete")).forEach(function(element) {
-      element.addEventListener('click', function () {
-        //remove book from display
-        var boss = this.parentNode
-        var bigBoss = boss.parentNode
-        console.log(element.value)
-        bigBoss.remove();
-        //remove book from myLibary array 
-          //needs fix need delete button caches... for loop better maybe
-          buildLibary();
-      })
-    });
+    const deleteButtons = document.querySelectorAll('button[data-delete]');
 
-        //read status.  not sure i like 4 extra boxes here, but work       
+      for (const deleteButton of deleteButtons) {
+        deleteButton.addEventListener('click', () => {
+    [...deleteButtons].forEach(btn => console.log(btn.id, myLibrary))
+      //     let arrayID = myLibrary.findIndex(item => item.id === userBook.index);
+      //     console.log(arrayID)
+      })
+    };
+      // function deleteBook() {
+      //   console.log(myLibrary)
+      //   console.log(userBook.index)
+      //   // this.parentElement.parentElement.remove();
+
+      // }
+
+      //read status ok books radio buttons
       var para = document.createElement('p');
       const paraClass = document.createAttribute("class");
       paraClass.value = "paraBox";
       para.setAttributeNode(paraClass);
       para.innerText = "Have you read this book?"
       box.appendChild(para);   
-        
-        var readYes = document.createElement('input');
-        const yesClass = document.createAttribute("class");
-        yesClass.value = "radioClass";
-        readYes.setAttributeNode(yesClass);
-        const yesType = document.createAttribute("type");
-        yesType.value = "radio";
-        readYes.setAttributeNode(yesType);
-        const yesName = document.createAttribute("name");
-        yesName.value = "readSelect";
-        readYes.setAttributeNode(yesName);
-        const yesValue = document.createAttribute("value");
-        yesValue.value = "Yes";
-        readYes.setAttributeNode(yesValue);
-        readYes.dataset.radio = "yes";
-        readYes.innerHTML = "yes";
-        para.appendChild(readYes);
 
-        var readlabelYes = document.createElement('label');  
-        const labelclassYes = document.createAttribute("class");
-        labelclassYes.value = "yesClass";
-        readlabelYes.setAttributeNode(labelclassYes);
-        const labelForYes = document.createAttribute("for");
-        labelForYes.value = "readSelect";
-        readlabelYes.setAttributeNode(labelForYes);
-        readlabelYes.innerHTML = "Yes";
-        para.appendChild(readlabelYes);
- 
-        var readNo = document.createElement('input');
-        const noClass = document.createAttribute("class");
-        noClass.value = "radioClass";
-        readNo.setAttributeNode(noClass);
-        const noType = document.createAttribute("type");
-        noType.value = "radio";
-        readNo.setAttributeNode(noType);
-        const noName = document.createAttribute("name");
-        noName.value = "readSelect";
-        readNo.setAttributeNode(noName);
-        const noValue = document.createAttribute("value");
-        noValue.value = "no";
-        readNo.setAttributeNode(noValue);
-        readNo.dataset.radio = "no";
-        readNo.innerText = "no";
-        para.appendChild(readNo);
+      var readDiv = document.createElement('div');
+      const readDivId = document.createAttribute("id");
+      readDivId.value = "group";
+      readDiv.setAttributeNode(readDivId);
+      para.appendChild(readDiv)
 
-        var readlabel = document.createElement('label');  
-        const labelclass = document.createAttribute("class");
-        labelclass.value = "noClass";
-        readlabel.setAttributeNode(labelclass);
-        const labelFor = document.createAttribute("for");
-        labelFor.value = "readSelect";
-        readlabel.setAttributeNode(labelFor);
-        readlabel.innerHTML = "No";
-        para.appendChild(readlabel);
+      const group = document.querySelector("#group");
+       group.innerHTML = yesOrNo.map((read) => `<div> <input type="radio" name="read" value=${read} id="${read}">
+       <label for="${read}">${read}</label></div>`).join(' ');
 
-   //  logic behind targeting the selector icon and changing the book
- Array.from(document.getElementsByClassName("radioClass")).forEach(function(element) {
-  element.addEventListener('click', () => {
-      element.addEventListener("change", () => {
-     if (element.value == "Yes") {
-          console.log(element.parentElement.parentElement.parentElement)
-             info.innerHTML = `Title \xa0: \xa0\xa0 ${newBook[0]}` + "<br>" + `Author \xa0:\xa0\xa0 ${newBook[1]}` + "<br>" + `Pages \xa0:\xa0\xa0 ${newBook[2]}`
-            + "<br>" + `Published \xa0:\xa0\xa0  ${newBook[3]}` + "<br>" + `Date Read \xa0:\xa0\xa0 ${newBook[5]}`;
-            element.parentElement.parentElement.parentElement.setAttributeNode(classAttribute1);
+       const radioButtons = document.querySelectorAll('input[name="read"]');
+        for(const radioButton of radioButtons) {
+           radioButton.addEventListener('change', showSelected);
         }
-        else {
-          console.log("duck");
-          //no, update display
-          info.innerHTML = `Title \xa0: \xa0\xa0 ${newBook[0]}` + "<br>" + `Author \xa0:\xa0\xa0 ${newBook[1]}` + "<br>" + `Pages \xa0:\xa0\xa0 ${newBook[2]}`
-            + "<br>" + `Published \xa0:\xa0\xa0  ${newBook[3]}`;
-          //need change to this element not all books
-          li.setAttributeNode(classAttribute);
-        }
-    })
-  })    
-})
-}
-              
+    };
+
+    function showSelected(e) {
+      console.log(e);
+       if(this.checked) {
+         if(this.value == "Yes") {
+          userBook.data = "on"
+          } else {
+            userBook.data = "off"
+          }
+      console.log(userBook.data)
+          }
+};
 // logic behind submit book button
 const formSubmit = function (event) {
   event.preventDefault();
@@ -185,15 +133,17 @@ const formSubmit = function (event) {
   published = this.published.value;
   read = this.read.value;
   dateRead = this.dateRead.value;
-  userBook = new Book(title, author, pages, published, read, dateRead);
+  data = this.data
+  index = uniqueIndex();
+  //need to define the array name here?
+  userBook = new Book(title, author, pages, published, read, dateRead, data, index,);
   myLibrary.push(userBook.info());
-  submitArray.push(userBook.info());
   toggleForm();
   addBookToLibrary();
   console.log(myLibrary)
-  console.log(submitArray)
 };
 
+//clear form here im thinking
 //logic behind add new book/get form button
 function toggleForm() {
   const newForm = document.getElementById("hideForm");
