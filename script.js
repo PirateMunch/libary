@@ -1,5 +1,5 @@
 let myLibrary = [];
-let userBook;
+let thisIndex;
 
 const form = document.getElementById('form');
 const getForm = document.getElementById("getForm");
@@ -13,33 +13,56 @@ function uniqueIndex() {
   return Math.floor(Math.random()*Date.now())
 }
 
-// constructor for books could be a Class.
-function Book(title, author, pages, published, read, dateRead, data, index) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.published = published
-  this.read = read
-  this.dateRead = dateRead
-  this.data = data
-  this.index = index
-  this.info = function() {
-    return [title, author, pages, published, read, dateRead, data, index]
+class Book {
+  constructor(title, author, pages, published, read, dateRead, data, index) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.published = published;
+    this.read = read;
+    this.dateRead = dateRead;
+    this.data = data;
+    this.index = index;
+    this.info = function () {
+      return [title, author, pages, published, read, dateRead, data, index];
+    };
   }
 };
 
-/////no logic left this stage.....  
-//// need simplify and take arrays out of some functions to stop cache
+// logic behind submit book button
+const formSubmit = function (event) {
+  event.preventDefault();
+
+  title = this.title.value;
+  author = this.author.value;
+  pages = this.pages.value;
+  published = this.published.value;
+  read = this.read.value;
+  dateRead = this.dateRead.value;
+  data = this.data
+  index = uniqueIndex();
+  userBook = new Book(title, author, pages, published, read, dateRead, data, index ) 
+  thisIndex = userBook.index;
+  myLibrary.push(userBook);
+  toggleForm();
+  addBookToLibrary();
+};
+
+/////no logic left this stage.. clear cache..
 //logic to build the display with new books, adding attributes, unique data-index
 function addBookToLibrary() {
-  newBook = myLibrary[myLibrary.length -1]; //not best way to get newbook. infact is causing issues i think
+  //finding my newbook from array using unique index number.
+  let newBook = myLibrary.find((car) => car.index==thisIndex);
+  const {title, author, pages, published, read, dateRead, data, index} = newBook
+  
+  console.log(newBook)
    //create list items with class of book and append
     var li = document.createElement('li');
     const classAttribute = document.createAttribute("class");
     classAttribute.value = "book";
     li.setAttributeNode(classAttribute);
     const listData = document.createAttribute("data-book");
-    listData.value = userBook.index;
+    listData.value = newBook.index;
     li.setAttributeNode(listData);
     bookShelf.appendChild(li);
   //display elements as info for user
@@ -48,8 +71,9 @@ function addBookToLibrary() {
     infoAtt.value = "info";
     info.setAttributeNode(infoAtt);
     li.appendChild(info);
-    info.innerHTML = `Title \xa0: \xa0\xa0 ${newBook[0]}` +"<br>"+ `Author \xa0:\xa0\xa0 ${newBook[1]}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${newBook[2]}`
-    +"<br>"+ `Published \xa0:\xa0\xa0  ${newBook[3]}` 
+    info.innerHTML = `Title \xa0: \xa0\xa0 ${newBook.title}` +"<br>"+ `Author \xa0:\xa0\xa0 ${newBook.author}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${newBook.pages}`
+    +"<br>"+ `Published \xa0:\xa0\xa0  ${newBook.published}` 
+
   //style div, basicly writing html layout in javascript here
     var box = document.createElement("div");
     const divAtt = document.createAttribute("class");
@@ -57,14 +81,14 @@ function addBookToLibrary() {
     box.setAttributeNode(divAtt);
     li.appendChild(box);
   
-  //Delete button logic
+ //Delete button logic -- move above read status for divs swap side
     var button = document.createElement("button");
     const deleteclass = document.createAttribute("class");
     deleteclass.value ="delete";
     const deleteUni = document.createAttribute("id");
-    deleteUni.value = userBook.index; 
+    deleteUni.value = newBook.index; 
     button.dataset.delete = "delete";
-    button.dataset.index = userBook.index;
+    button.dataset.index = newBook.index;
     button.setAttributeNode(deleteclass);
     button.setAttributeNode(deleteUni);
     const deleteImg = '<img src="delete1.svg">';
@@ -73,20 +97,9 @@ function addBookToLibrary() {
     box.appendChild(button)
 
     const deleteButtons = document.querySelectorAll('button[data-delete]');
-
-      for (const deleteButton of deleteButtons) {
-        deleteButton.addEventListener('click', () => {
-    [...deleteButtons].forEach(btn => console.log(btn.id, myLibrary))
-      //     let arrayID = myLibrary.findIndex(item => item.id === userBook.index);
-      //     console.log(arrayID)
-      })
-    };
-      // function deleteBook() {
-      //   console.log(myLibrary)
-      //   console.log(userBook.index)
-      //   // this.parentElement.parentElement.remove();
-
-      // }
+        for(const deleteButton of deleteButtons) {
+          deleteButton.addEventListener('click', deleteBook)
+        }
 
       //read status ok books radio buttons
       var para = document.createElement('p');
@@ -110,9 +123,19 @@ function addBookToLibrary() {
         for(const radioButton of radioButtons) {
            radioButton.addEventListener('change', showSelected);
         }
-    };
+      
 
-    function showSelected(e) {
+}; //end addbooktolibary big ass function. must shorten
+
+function deleteBook () {
+  let newBook = myLibrary.find((car) => car.index==thisIndex);
+  myLibrary.pop(newBook);
+  this.parentElement.parentElement.remove();
+  console.log(myLibrary)
+};
+
+//read status function
+function showSelected(e) {
       console.log(e);
        if(this.checked) {
          if(this.value == "Yes") {
@@ -123,25 +146,7 @@ function addBookToLibrary() {
       console.log(userBook.data)
           }
 };
-// logic behind submit book button
-const formSubmit = function (event) {
-  event.preventDefault();
-  //declare my values in the function for my eventlistener submit button
-  title = this.title.value;
-  author = this.author.value;
-  pages = this.pages.value;
-  published = this.published.value;
-  read = this.read.value;
-  dateRead = this.dateRead.value;
-  data = this.data
-  index = uniqueIndex();
-  //need to define the array name here?
-  userBook = new Book(title, author, pages, published, read, dateRead, data, index,);
-  myLibrary.push(userBook.info());
-  toggleForm();
-  addBookToLibrary();
-  console.log(myLibrary)
-};
+
 
 //clear form here im thinking
 //logic behind add new book/get form button
@@ -153,6 +158,7 @@ function toggleForm() {
     getForm.innerHTML = "Add New Book";
     emptyBook.innerHTML = "";
     emptyBook.style.marginTop = 0;
+
   }
   else {
     newForm.style.display ='flex';
