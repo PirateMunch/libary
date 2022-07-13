@@ -78,8 +78,7 @@ function addBookToLibrary() {
     for(const deleteButton of deleteButtons) {
       deleteButton.addEventListener('click', deleteBook)
     };
-
-//Bugged--read status for radio buttons on books -make for each?
+    //div spacer to style radio buttons
     var para = document.createElement('p');
     const paraClass = document.createAttribute("class");
     paraClass.value = "paraBox";
@@ -87,22 +86,28 @@ function addBookToLibrary() {
     para.innerText = "Have you read this book?"
     box.appendChild(para);   
 
+    //group my radio buttons here
     var readDiv = document.createElement('div');
-    const readDivId = document.createAttribute("id");
-    readDivId.value = "group";
+    const readDivId = document.createAttribute("data-radioInput");
+    readDivId.value = `${newBook.index}`;
     readDiv.setAttributeNode(readDivId);
     para.appendChild(readDiv);
 
-    //need rework here. give all new inputs read option
-    const group = document.querySelector("#group");
-      group.innerHTML = readInput.map((read) => `<div> <input type="radio" name="read" value=${read} id="${read}">
-       <label for="${read}">${read}</label></div>`).join(' ');
-       
-//Bug -- cant do ALL need unique buttons. UniqueIndex this...
-      const radioButtons = document.querySelectorAll('input[name="read"]');
+    console.log(newBook.read)
+    //created new feature(bug)! - giving selector same data-index as delete
+    //-created the radio inputs inside my delete button-
+    //could make more and add a delete confirm!
+    //new function to make unique radios to unique book
+    const group = document.querySelector(`[data-radioInput="${newBook.index}"]`);
+      group.innerHTML = readInput.map((read) => `<div> <input type="radio" name="${newBook.index}" value=${read} id="${newBook.index}">
+       <label for="${newBook.index}">${read}</label></div>`).join(' ');
+
+      //event listener for radio buttons.
+      const radioButtons = document.querySelectorAll(`[data-radioInput="${newBook.index}"]`);
         for(const radioButton of radioButtons) {
            radioButton.addEventListener('change', showSelected);
         };
+        console.log(radioButtons) //gives nodelist
 }; //end addBookToLibary. long but works, refactor perhaps.
 
 // logic behind submit book button
@@ -141,16 +146,18 @@ function toggleForm() {
 };
 
 //read status for books read on/off function
-function showSelected(e) {
-  console.log(e);
+function showSelected() {
+   console.log(this)
+
+//this.child vaalue = on then on
     if(this.checked) {
       if(this.value == "on") {
         userBook.data = "on"
         } else {
           userBook.data = "off"
         }
-      console.log(userBook.data)
       };
+    
 };
 
 function deleteBook () {
