@@ -1,18 +1,17 @@
 let myLibrary = [];
 let thisIndex;
-
 const form = document.getElementById('form');
 const getForm = document.getElementById("getForm");
-const bookShelf = document.getElementById("books");
+const bookShelf = document.getElementById("books"); //called 1 time. better in function maybe? or use to clear screen...
 const emptyBook = document.getElementById("emptyBook");
+const readInput = ['on', 'off'];
 
-const yesOrNo = ['Yes', 'No'];
-
-//random enough number for my books.
+//random number for my books.
 function uniqueIndex() {
   return Math.floor(Math.random()*Date.now())
 }
 
+//Main Object constructor
 class Book {
   constructor(title, author, pages, published, read, dateRead, data, index) {
     this.title = title;
@@ -29,10 +28,86 @@ class Book {
   }
 };
 
+//function to build ui display with books
+function addBookToLibrary() {
+  //find+build newbook from array using unique index number.
+  let newBook = myLibrary.find((car) => car.index==thisIndex);
+  const {title, author, pages, published, read, dateRead, data, index} = newBook;
+
+  //create list for books/css styling.
+  var li = document.createElement('li');
+  const classAttribute = document.createAttribute("class");
+  classAttribute.value = "book";
+  li.setAttributeNode(classAttribute);
+  const listData = document.createAttribute("data-book");
+  listData.value = newBook.index;
+  li.setAttributeNode(listData);
+  bookShelf.appendChild(li);
+  //display elements as info for user (text list in ui list)
+  var info = document.createElement("li");
+  const infoAtt = document.createAttribute("info");
+  infoAtt.value = "info";
+  info.setAttributeNode(infoAtt);
+  li.appendChild(info);
+  info.innerHTML = `Title \xa0: \xa0\xa0 ${newBook.title}` +"<br>"+ `Author \xa0:\xa0\xa0 ${newBook.author}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${newBook.pages}`
+  +"<br>"+ `Published \xa0:\xa0\xa0  ${newBook.published}` 
+
+  //style div, basicly writing html layout in javascript here
+  var box = document.createElement("div");
+  const divAtt = document.createAttribute("class");
+  divAtt.value = "divBox";
+  box.setAttributeNode(divAtt);
+  li.appendChild(box);
+  
+ //Delete button logic and create --
+  var button = document.createElement("button");
+  const deleteclass = document.createAttribute("class");
+  deleteclass.value ="delete";
+  const deleteUni = document.createAttribute("id");
+  deleteUni.value = newBook.index; 
+  button.dataset.delete = "delete";
+  button.dataset.index = newBook.index;
+  button.setAttributeNode(deleteclass);
+  button.setAttributeNode(deleteUni);
+  const deleteImg = '<img src="delete1.svg">';
+  button.innerHTML = deleteImg;
+  box.appendChild(button);
+
+  //EventListener for delete buttons.
+  const deleteButtons = document.querySelectorAll('button[data-delete]');
+    for(const deleteButton of deleteButtons) {
+      deleteButton.addEventListener('click', deleteBook)
+    };
+
+//Bugged--read status for radio buttons on books -make for each?
+    var para = document.createElement('p');
+    const paraClass = document.createAttribute("class");
+    paraClass.value = "paraBox";
+    para.setAttributeNode(paraClass);
+    para.innerText = "Have you read this book?"
+    box.appendChild(para);   
+
+    var readDiv = document.createElement('div');
+    const readDivId = document.createAttribute("id");
+    readDivId.value = "group";
+    readDiv.setAttributeNode(readDivId);
+    para.appendChild(readDiv);
+
+    //need rework here. give all new inputs read option
+    const group = document.querySelector("#group");
+      group.innerHTML = readInput.map((read) => `<div> <input type="radio" name="read" value=${read} id="${read}">
+       <label for="${read}">${read}</label></div>`).join(' ');
+       
+//Bug -- cant do ALL need unique buttons. UniqueIndex this...
+      const radioButtons = document.querySelectorAll('input[name="read"]');
+        for(const radioButton of radioButtons) {
+           radioButton.addEventListener('change', showSelected);
+        };
+}; //end addBookToLibary. long but works, refactor perhaps.
+
 // logic behind submit book button
 const formSubmit = function (event) {
   event.preventDefault();
-
   title = this.title.value;
   author = this.author.value;
   pages = this.pages.value;
@@ -48,133 +123,52 @@ const formSubmit = function (event) {
   addBookToLibrary();
 };
 
-/////no logic left this stage.. clear cache..
-//logic to build the display with new books, adding attributes, unique data-index
-function addBookToLibrary() {
-  //finding my newbook from array using unique index number.
-  let newBook = myLibrary.find((car) => car.index==thisIndex);
-  const {title, author, pages, published, read, dateRead, data, index} = newBook
-  
-  console.log(newBook)
-   //create list items with class of book and append
-    var li = document.createElement('li');
-    const classAttribute = document.createAttribute("class");
-    classAttribute.value = "book";
-    li.setAttributeNode(classAttribute);
-    const listData = document.createAttribute("data-book");
-    listData.value = newBook.index;
-    li.setAttributeNode(listData);
-    bookShelf.appendChild(li);
-  //display elements as info for user
-    var info = document.createElement("li");
-    const infoAtt = document.createAttribute("info");
-    infoAtt.value = "info";
-    info.setAttributeNode(infoAtt);
-    li.appendChild(info);
-    info.innerHTML = `Title \xa0: \xa0\xa0 ${newBook.title}` +"<br>"+ `Author \xa0:\xa0\xa0 ${newBook.author}`  +"<br>"+ `Pages \xa0:\xa0\xa0 ${newBook.pages}`
-    +"<br>"+ `Published \xa0:\xa0\xa0  ${newBook.published}` 
-
-  //style div, basicly writing html layout in javascript here
-    var box = document.createElement("div");
-    const divAtt = document.createAttribute("class");
-    divAtt.value = "divBox";
-    box.setAttributeNode(divAtt);
-    li.appendChild(box);
-  
- //Delete button logic -- move above read status for divs swap side
-    var button = document.createElement("button");
-    const deleteclass = document.createAttribute("class");
-    deleteclass.value ="delete";
-    const deleteUni = document.createAttribute("id");
-    deleteUni.value = newBook.index; 
-    button.dataset.delete = "delete";
-    button.dataset.index = newBook.index;
-    button.setAttributeNode(deleteclass);
-    button.setAttributeNode(deleteUni);
-    const deleteImg = '<img src="delete1.svg">';
-    button.innerHTML = deleteImg;
-
-    box.appendChild(button)
-
-    const deleteButtons = document.querySelectorAll('button[data-delete]');
-        for(const deleteButton of deleteButtons) {
-          deleteButton.addEventListener('click', deleteBook)
-        }
-
-      //read status ok books radio buttons
-      var para = document.createElement('p');
-      const paraClass = document.createAttribute("class");
-      paraClass.value = "paraBox";
-      para.setAttributeNode(paraClass);
-      para.innerText = "Have you read this book?"
-      box.appendChild(para);   
-
-      var readDiv = document.createElement('div');
-      const readDivId = document.createAttribute("id");
-      readDivId.value = "group";
-      readDiv.setAttributeNode(readDivId);
-      para.appendChild(readDiv)
-
-      const group = document.querySelector("#group");
-       group.innerHTML = yesOrNo.map((read) => `<div> <input type="radio" name="read" value=${read} id="${read}">
-       <label for="${read}">${read}</label></div>`).join(' ');
-
-       const radioButtons = document.querySelectorAll('input[name="read"]');
-        for(const radioButton of radioButtons) {
-           radioButton.addEventListener('change', showSelected);
-        }
-      
-
-}; //end addbooktolibary big ass function. must shorten
-
-function deleteBook () {
-  let newBook = myLibrary.find((car) => car.index==thisIndex);
-  myLibrary.pop(newBook);
-  this.parentElement.parentElement.remove();
-  console.log(myLibrary)
-};
-
-//read status function
-function showSelected(e) {
-      console.log(e);
-       if(this.checked) {
-         if(this.value == "Yes") {
-          userBook.data = "on"
-          } else {
-            userBook.data = "off"
-          }
-      console.log(userBook.data)
-          }
-};
-
-
-//clear form here im thinking
-//logic behind add new book/get form button
+//(Add New Book) get form button
 function toggleForm() {
   const newForm = document.getElementById("hideForm");
   const displaySetting = newForm.style.display;
   if(displaySetting == 'flex') {
     newForm.style.display = 'none';
     getForm.innerHTML = "Add New Book";
+    //empty book can be in build libary? Also CSS for style? Not showing in buildlibary
     emptyBook.innerHTML = "";
     emptyBook.style.marginTop = 0;
-
   }
   else {
     newForm.style.display ='flex';
     getForm.innerHTML = "Cancel Form"
-  }
+  };
 };
 
-//more of a default display function for now. 
+//read status for books read on/off function
+function showSelected(e) {
+  console.log(e);
+    if(this.checked) {
+      if(this.value == "on") {
+        userBook.data = "on"
+        } else {
+          userBook.data = "off"
+        }
+      console.log(userBook.data)
+      };
+};
+
+function deleteBook () {
+  let newBook = myLibrary.find((car) => car.index==thisIndex);
+  myLibrary.pop(newBook);
+  this.parentElement.parentElement.remove();
+  buildLibary();
+};
+
+//default display if no books in libary.
 function buildLibary() {
-  if(myLibrary.length === 0 ) {
+  if(myLibrary.length == 0 ) {
   emptyBook.innerHTML = "No books found, add books!"
   console.log(myLibrary.length)
   }
   else {
     console.log(myLibrary.length)
-  }
+  };
 };
 
 window.onLoad = buildLibary();
@@ -183,3 +177,4 @@ window.onLoad = buildLibary();
 form.addEventListener("submit", formSubmit);
 //add new book button
 getForm.addEventListener('click', toggleForm);
+
