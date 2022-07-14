@@ -89,6 +89,9 @@ function addBookToLibrary() {
 
     //group my radio buttons here
     var readDiv = document.createElement('div');
+    const readClass = document.createAttribute("class");
+    readClass.value = "readBtn";
+    readDiv.setAttributeNode(readClass);
     const readDivId = document.createAttribute("data-radioInput");
     readDivId.value = `${newBook.index}`;
     readDiv.setAttributeNode(readDivId);
@@ -154,7 +157,7 @@ function showSelected() {
     thisBook.style.background = style.getPropertyValue('--green')
     //div to add date read / style
     var paraRead = document.createElement('p');
-    paraRead.innerText = `date is annoying, some graphic is easier!`
+    paraRead.innerText = `~~~ Book Finished ~~~`
     thisInfo.appendChild(paraRead);   
   
   } else { 
