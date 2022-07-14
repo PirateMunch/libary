@@ -1,10 +1,11 @@
 let myLibrary = [];
-let thisIndex;
+let thisIndex; //messy namespace! clean this up
 const form = document.getElementById('form');
 const getForm = document.getElementById("getForm");
 const bookShelf = document.getElementById("books"); //called 1 time. better in function maybe? or use to clear screen...
 const emptyBook = document.getElementById("emptyBook");
-const readInput = ['on', 'off'];
+//get css variables!
+const style = getComputedStyle(document.body);
 
 //random number for my books.
 function uniqueIndex() {
@@ -31,7 +32,7 @@ class Book {
 //function to build ui display with books
 function addBookToLibrary() {
   //find+build newbook from array using unique index number.
-  let newBook = myLibrary.find((car) => car.index==thisIndex);
+  let newBook = myLibrary.find((thisBook) => thisBook.index==thisIndex);
   const {title, author, pages, published, read, dateRead, data, index} = newBook;
 
   //create list for books/css styling.
@@ -93,22 +94,18 @@ function addBookToLibrary() {
     readDiv.setAttributeNode(readDivId);
     para.appendChild(readDiv);
 
-    console.log(newBook.read)
-    //created new feature(bug)! - giving selector same data-index as delete
-    //-created the radio inputs inside my delete button-
-    //could make more and add a delete confirm!
     //new function to make unique radios to unique book
     const group = document.querySelector(`[data-radioInput="${newBook.index}"]`);
-      group.innerHTML = readInput.map((read) => `<div> <input type="radio" name="${newBook.index}" value=${read} id="${newBook.index}">
-       <label for="${newBook.index}">${read}</label></div>`).join(' ');
+      group.innerHTML =  `<div> <input type="radio" name="${newBook.index}" value="on" id="${newBook.index+"on"}" class="${newBook.index}">
+       <label for="${newBook.index+"on"}">Yes</label></div><div> <input type="radio" name="${newBook.index}" value="off" id="${newBook.index+"off"}" class="${newBook.index}">
+       <label for="${newBook.index+"off"}">No</label></div>`;
 
       //event listener for radio buttons.
-      const radioButtons = document.querySelectorAll(`[data-radioInput="${newBook.index}"]`);
+      const radioButtons = document.querySelectorAll(`[class="${newBook.index}"]`);
         for(const radioButton of radioButtons) {
            radioButton.addEventListener('change', showSelected);
-        };
-        console.log(radioButtons) //gives nodelist
-}; //end addBookToLibary. long but works, refactor perhaps.
+        };      
+};
 
 // logic behind submit book button
 const formSubmit = function (event) {
@@ -145,23 +142,32 @@ function toggleForm() {
   };
 };
 
+
 //read status for books read on/off function
 function showSelected() {
-   console.log(this)
+  thisBook = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  thisInfo = thisBook.firstChild
 
-//this.child vaalue = on then on
-    if(this.checked) {
-      if(this.value == "on") {
-        userBook.data = "on"
-        } else {
-          userBook.data = "off"
-        }
-      };
-    
+  if(this.value == "on") {
+    userBook.data = "on";
+    userBook.read = "yes";
+    thisBook.style.background = style.getPropertyValue('--green')
+    //div to add date read / style
+    var paraRead = document.createElement('p');
+    paraRead.innerText = `date is annoying, some graphic is easier!`
+    thisInfo.appendChild(paraRead);   
+  
+  } else { 
+    userBook.data = "off"
+    userBook.read = "no"
+    //remove div for read/style
+    thisInfo.lastChild.remove() 
+    thisBook.style.background = ""
+  }    
 };
 
 function deleteBook () {
-  let newBook = myLibrary.find((car) => car.index==thisIndex);
+  let newBook = myLibrary.find((currentBook) => currentBook.index==thisIndex);
   myLibrary.pop(newBook);
   this.parentElement.parentElement.remove();
   buildLibary();
@@ -184,4 +190,3 @@ window.onLoad = buildLibary();
 form.addEventListener("submit", formSubmit);
 //add new book button
 getForm.addEventListener('click', toggleForm);
-
